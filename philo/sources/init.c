@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 09:54:17 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/03/21 17:19:35 by spunyapr         ###   ########.fr       */
+/*   Created: 2025/03/21 17:19:43 by spunyapr          #+#    #+#             */
+/*   Updated: 2025/03/21 17:51:03 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int main (int ac, char **av)
+void init(t_data *data)
 {
-    t_data data;
+    data->philo = malloc (sizeof(t_philo) * data->philo_nbr);
+    if (!data->philo)
+        exit_error("Fail Malloc");
     
-    if (ac >= 5 && ac <= 6)
-    {
-        parse_input(&data, ac, av);
-        // Initialize
-        init();
-    }
-    else
-    {
-        exit_error("Error: Example of good agrument\n./philo 5 200 800 800 [5]");
-    }
 }

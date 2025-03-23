@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 10:14:46 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/03/18 20:40:37 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:35:46 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,16 @@ int	check_valid_input(int ac, char **av)
 	return (0);
 }
 
-void	parse_input(t_dinner *dinner, int ac, char **av)
+void	parse_input(t_data *data, int ac, char **av)
 {
 	if (ft_long_atoi(av[1]) == 0)
 		exit(1);
 	if (check_valid_input(ac, av))
 		return (exit_error("Wrong Input: ./philo 5 200 800 800 [5] (EXAMPLE)"));
-	dinner->philo_nbr = ft_long_atoi(av[1]);
-	dinner->time_to_die = ft_long_atoi(av[2]);
-	dinner->time_to_eat = ft_long_atoi(av[3]);
-	dinner->time_to_sleep = ft_long_atoi(av[4]);
+	data->philo_nbr = ft_long_atoi(av[1]);
+	data->time_to_die = ft_long_atoi(av[2]);
+	data->time_to_eat = ft_long_atoi(av[3]);
+	data->time_to_sleep = ft_long_atoi(av[4]);
 	if (ac == 6)
-		dinner->meal_nbr = nbr_inside_brackets(av[5]);
+		data->meal_nbr = nbr_inside_brackets(av[5]);
 }
