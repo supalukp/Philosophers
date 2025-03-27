@@ -6,7 +6,7 @@
 #    By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/17 09:43:19 by spunyapr          #+#    #+#              #
-#    Updated: 2025/03/18 20:36:51 by spunyapr         ###   ########.fr        #
+#    Updated: 2025/03/27 15:07:28 by spunyapr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ INCLUDES = -I
 SRC_DIR = sources
 SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/utils.c \
-		$(SRC_DIR)/parsing.c
+		$(SRC_DIR)/parsing.c \
+		$(SRC_DIR)/debug.c \
+		$(SRC_DIR)/init.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
