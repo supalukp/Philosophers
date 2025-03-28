@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:48:37 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/03/27 15:06:58 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/03/28 17:35:50 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 typedef struct s_data	t_data;
 typedef struct s_philo	t_philo;
 typedef struct s_fork	t_fork;
+
+typedef enum e_time
+{
+	SECOND; MILLISECOND; MICROSECOND;
+}
+t_time;
 
 struct					s_fork
 {
@@ -74,8 +80,11 @@ void					program_init(t_data *data);
 void					data_init(t_data *data);
 void					philos_init(t_data *data);
 
+/****************PROGRAM***************/
+
 /*****************UTILS****************/
 int						exit_error(const char *error_msg);
+long					get_current_time(t_time time);
 
 /*****************DEBUG****************/
 void					debug_parsing(t_data *data);
