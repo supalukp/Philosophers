@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:48:37 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/03/28 17:35:50 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:07:15 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ typedef struct s_fork	t_fork;
 
 typedef enum e_time
 {
-	SECOND; MILLISECOND; MICROSECOND;
-}
-t_time;
+	SECOND,
+	MILLISECOND,
+	MICROSECOND
+}						t_time;
 
 struct					s_fork
 {
-	pthread_mutex_t		*fork_lock;
+	pthread_mutex_t		fork_lock;
 	bool				fork_taken;
 	bool				fork_created;
 };
@@ -47,8 +48,8 @@ struct					s_data
 	long				meal_nbr;
 	t_philo				*philo;
 	t_fork				*fork;
-	pthread_mutex_t		*write_lock;
-	pthread_mutex_t		*table_lock;
+	pthread_mutex_t		write_lock;
+	pthread_mutex_t		table_lock;
 	bool				all_philos_created;
 	long				start_dinner_time;
 	bool				end_dinner;
@@ -76,11 +77,15 @@ int						check_valid_input(int ac, char **av);
 int						parse_input(t_data *data, int ac, char **av);
 
 /*****************INITS****************/
-void					program_init(t_data *data);
-void					data_init(t_data *data);
-void					philos_init(t_data *data);
+int						program_init(t_data *data);
+void					first_init(t_data *data);
+int						data_init(t_data *data);
+int						philos_init(t_data *data);
+int						mutex_init(t_data *data);
 
 /****************PROGRAM***************/
+int create_philos_threads(t_data *data);
+int main_program(t_data *data);
 
 /*****************UTILS****************/
 int						exit_error(const char *error_msg);
@@ -88,5 +93,8 @@ long					get_current_time(t_time time);
 
 /*****************DEBUG****************/
 void					debug_parsing(t_data *data);
+
+/******************FREE****************/
+int destroy_all_mutex(t_data *data);
 
 #endif
