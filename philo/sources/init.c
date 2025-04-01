@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:19:43 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/03/31 15:57:42 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:56:25 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	data_init(t_data *data)
 	i = 0;
 	data->philo = malloc(sizeof(t_philo) * data->philo_nbr);
 	if (!data->philo)
-		return(exit_error("Fail Malloc"));
+		return(return_error("Fail Malloc"));
 	data->fork = malloc(sizeof(t_fork) * data->philo_nbr);
 	if (!data->fork)
-		return (exit_error("Fail Malloc"));
+		return (return_error("Fail Malloc"));
 	return (0);
 }
 
@@ -53,15 +53,15 @@ int mutex_init(t_data *data)
 	
 	i = 0;
 	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
-		return (exit_error("Fail create mutex write lock"));
+		return (return_error("Fail create mutex write lock"));
 	if (pthread_mutex_init(&data->table_lock, NULL) != 0)
-		return (exit_error("Fail create mutex table lock"));
+		return (return_error("Fail create mutex table lock"));
 	while (i < data->philo_nbr)
 	{
 		if (pthread_mutex_init(&data->fork[i].fork_lock, NULL) != 0)
 		{
 			data->fork[i].fork_created = false;
-			return (exit_error("Fail create fork"));
+			return (return_error("Fail create fork"));
 		}
 		else
 			data->fork[i].fork_created = true;

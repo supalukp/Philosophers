@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:41:45 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/03/31 16:08:03 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:49:08 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int create_philos_threads(t_data *data)
     i = 0;
     while (i < data->philo_nbr)
     {
-        if (pthread_create(&data->philo[i].thread_id, NULL, #function, #virable) != 0)
-            return(exit_error("Failed create threads"));
+        if (pthread_create(&data->philo[i].thread_id, NULL, philo_routine, data) != 0)
+            return(return_error("Failed create threads"));
         i++;
     }
     data->all_philos_created = true;
@@ -39,8 +39,28 @@ int create_philos_threads(t_data *data)
     while (i < data->philo_nbr)
     {
         if (pthread_join(data->philo[i].thread_id, NULL) != 0)
-            exit_error("Failed join threads");
+            return_error("Failed join threads");
         i++;
     }
     return (0);
+}
+
+void philo_routine(void *data)
+{
+    t_philo *philo;
+
+    philo = (void *)data;
+   
+    while (check_all_threads_created(philo->data) == false);
+    //Set last meal time = start time
+    philo->last_meal_time = get_current_time(MILLISECOND);
+    //loop until dinner finish
+    while (check_dinner_finished(philo->data) != true)
+    {
+        if (philo->full == true)
+            break;
+        // eat();
+        // sleep();
+        // think();
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 09:54:17 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/03/31 16:06:48 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:56:33 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	main(int ac, char **av)
 			return (1);
 	}
 	else
-		exit_error("Error: Example of good agrument\n./philo 5 200 800 800 [5]");
+		return_error("Error: Example of good agrument\n./philo 5 200 800 800 [5]");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:48:45 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/03/31 15:53:31 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:09:00 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,18 @@ int destroy_all_mutex(t_data *data)
 
     i = 0;
     if(pthread_mutex_destroy(&data->write_lock) != 0)
-        return (exit_error("write_lock mutex destroy failed"));
+        return (return_error("write_lock mutex destroy failed"));
     if(pthread_mutex_destroy(&data->table_lock) != 0)
-        return (exit_error("table_lock mutex destroy failed"));
+        return (return_error("table_lock mutex destroy failed"));
     while (i < data->philo_nbr)
     {
         if(pthread_mutex_destroy(&data->fork[i].fork_lock) != 0)
-            return (exit_error("fork mutex destroy failed"));
+            return (return_error("fork mutex destroy failed"));
         i++;
     }
-    free(data->philo);
-    free(data->fork);
+    if (data->philo)
+        free(data->philo);
+    if (data->fork)
+        free(data->fork);
     return (0);
 }
