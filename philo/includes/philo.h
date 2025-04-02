@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:48:37 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/01 17:47:38 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:42:39 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ struct					s_philo
 	long				last_meal_time;
 	int					right_folk;
 	int					left_folk;
+	pthread_mutex_t		philo_lock;
 	t_data				*data;
 };
 
 /***************PARSING****************/
 long					ft_long_atoi(const char *nb);
-long					nbr_inside_brackets(char *str);
 int						only_digit(const char *str);
 int						check_valid_input(int ac, char **av);
 int						parse_input(t_data *data, int ac, char **av);
@@ -93,8 +93,12 @@ int						philos_init(t_data *data);
 int						mutex_init(t_data *data);
 
 /****************PROGRAM***************/
-int						create_philos_threads(t_data *data);
-int						main_program(t_data *data);
+void					create_philos_threads(t_data *data);
+void					main_program(t_data *data);
+void					*philo_routine(void *data);
+int						eat(t_philo *philo);
+void					think(t_philo *philo);
+void					philo_sleep(t_philo *philo);
 
 /*****************MUTEX****************/
 int						set_bool(pthread_mutex_t *mutex, bool *dest,
@@ -108,15 +112,16 @@ bool					check_dinner_finished(t_data *data);
 
 /*****************WRITE****************/
 void					write_status(t_philo *philo, t_status status);
-int						write_mutex_lock(pthread_mutex_t *mutex, t_philo *philo,
-							t_status status);
+int						write_mutex_lock(t_philo *philo, t_status status);
 
 /*****************UTILS****************/
 int						return_error(const char *error_msg);
 long					get_current_time(t_time time);
+void					ft_usleep(long duration, t_data *data);
 
 /*****************DEBUG****************/
 void					debug_parsing(t_data *data);
+void debug_t_philo(t_data *data);
 
 /******************FREE****************/
 int						destroy_all_mutex(t_data *data);

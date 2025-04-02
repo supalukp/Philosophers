@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 09:54:17 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/01 10:56:33 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:56:57 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	main(int ac, char **av)
 		//debug_parsing(&data);
 		if (program_init(&data) == 1)
 			return (1);
-		if (main_program(&data) == 1)
-			return (1);
+		debug_t_philo(&data);
+		//main_program(&data);
 		if (destroy_all_mutex(&data) == 1)
 			return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 14:24:01 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/01 10:58:31 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:54:51 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,17 @@ long	get_current_time(t_time time)
 	else if (time == MICROSECOND)
 		current_time = (tv.tv_sec * 1000000) + tv.tv_usec;
 	return (current_time);
+}
+
+void ft_usleep(long duration, t_data *data)
+{
+	long start;
+
+	start = get_current_time(MILLISECOND);
+	while (get_current_time(MILLISECOND) - start < duration)
+	{
+		if (check_dinner_finished(data) == true)
+			break;
+		usleep(100);
+	}
 }

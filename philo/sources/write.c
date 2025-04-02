@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:24:39 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/01 17:40:47 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:46:45 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void write_status(t_philo *philo, t_status status)
     }
 }
 
-int write_mutex_lock(pthread_mutex_t *mutex, t_philo *philo, t_status status)
+int write_mutex_lock(t_philo *philo, t_status status)
 {
-    if (pthread_mutex_lock(mutex) == 1)
+    if (pthread_mutex_lock(&philo->data->write_lock) == 1)
         return (1);
     write_status(philo, status);
-    if (pthread_mutex_unlock(mutex) == 1)
+    if (pthread_mutex_unlock(&philo->data->write_lock) == 1)
         return (1);
     return (0);
 }
