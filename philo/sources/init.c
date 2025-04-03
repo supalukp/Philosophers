@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:19:43 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/02 14:57:54 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:02:39 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,8 @@ int	philos_init(t_data *data)
 		data->philo[i].dead = false;
 		if (pthread_mutex_init(&data->philo[i].philo_lock, NULL) != 0)
 			return (return_error("Fail create mutex philo lock"));
-		// if (data->philo[i].id % 2 == 0)
-		// {
-		// 	data->philo[i].right_folk = data->philo[i].id;
-		// 	data->philo[i].left_folk = data->philo[i].id % data->philo_nbr - 1;
-		// }
-		// else
-		// {
 		data->philo[i].right_folk = data->philo[i].id % data->philo_nbr;
 		data->philo[i].left_folk = data->philo[i].id - 1;
-		//}
 		data->philo[i].data = data;
 		i++;
 	}

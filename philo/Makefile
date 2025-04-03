@@ -6,7 +6,7 @@
 #    By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/17 09:43:19 by spunyapr          #+#    #+#              #
-#    Updated: 2025/04/02 13:13:10 by spunyapr         ###   ########.fr        #
+#    Updated: 2025/04/03 13:11:46 by spunyapr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/program.c \
 		$(SRC_DIR)/mutex.c \
 		$(SRC_DIR)/routine.c \
-		$(SRC_DIR)/write.c
+		$(SRC_DIR)/write.c \
+		$(SRC_DIR)/monitor.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)

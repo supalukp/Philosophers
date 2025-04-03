@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:48:37 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/02 14:42:39 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:12:28 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef enum e_status
 	EATING,
 	SLEEPING,
 	THINKING,
-	TAKE_FORK,
+	TAKE_FORK_LEFT,
+	TAKE_FORK_RIGHT,
 	DIED
 }						t_status;
 
@@ -99,6 +100,12 @@ void					*philo_routine(void *data);
 int						eat(t_philo *philo);
 void					think(t_philo *philo);
 void					philo_sleep(t_philo *philo);
+void					get_fork(t_philo *philo);
+
+/****************MONITOR***************/
+void					create_monitor_threads(t_data *data);
+void					*monitor_all_philos(void *arg);
+bool					philo_dead(t_philo *philo);
 
 /*****************MUTEX****************/
 int						set_bool(pthread_mutex_t *mutex, bool *dest,
@@ -121,7 +128,8 @@ void					ft_usleep(long duration, t_data *data);
 
 /*****************DEBUG****************/
 void					debug_parsing(t_data *data);
-void debug_t_philo(t_data *data);
+void					debug_t_philo(t_data *data);
+void					debug_t_data(t_data *data);
 
 /******************FREE****************/
 int						destroy_all_mutex(t_data *data);
