@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:24:19 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/07 15:40:01 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:35:54 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,19 @@ void get_fork(t_philo *philo)
         pthread_mutex_lock(&philo->data->fork[philo->right_folk].fork_lock);
         if (philo->data->fork[philo->right_folk].fork_taken == false)
         {
-            write_mutex_lock(philo, TAKE_FORK);
+            write_mutex_lock(philo, TAKE_FORK_RIGHT);
             philo->data->fork[philo->right_folk].fork_taken = true;
+        }
+        if (philo->data->fork[philo->left_folk].fork_taken == true)
+        {
+            pthread_mutex_unlock(&philo->data->fork[philo->right_folk].fork_lock);
+            philo->data->fork[philo->right_folk].fork_taken = false;
+            return ;
         }
         pthread_mutex_lock(&philo->data->fork[philo->left_folk].fork_lock);
         if (philo->data->fork[philo->left_folk].fork_taken == false)
         {
-            write_mutex_lock(philo, TAKE_FORK);
+            write_mutex_lock(philo, TAKE_FORK_LEFT);
             philo->data->fork[philo->left_folk].fork_taken = true;
         }
     }
@@ -34,17 +40,25 @@ void get_fork(t_philo *philo)
         pthread_mutex_lock(&philo->data->fork[philo->left_folk].fork_lock);
         if (philo->data->fork[philo->left_folk].fork_taken == false)
         {
-            write_mutex_lock(philo, TAKE_FORK);
+            write_mutex_lock(philo, TAKE_FORK_LEFT);
             philo->data->fork[philo->left_folk].fork_taken = true;
         }
-        pthread_mutex_lock(&philo->data->fork[philo->right_folk].fork_lock);
+        if (philo->data->fork[philo->right_folk].fork_taken == true)
+        {
+            pthread_mutex_unlock(&philo->data->fork[philo->right_folk].fork_lock);
+            philo->data->fork[philo->right_folk].fork_taken = false;
+            return ;
+        }
+        pthread_mutex_lock(&philo->data->fork[philo->right_folk].fork_lock);         
         if (philo->data->fork[philo->right_folk].fork_taken == false)
         {
-            write_mutex_lock(philo, TAKE_FORK);
+            write_mutex_lock(philo, TAKE_FORK_RIGHT);
             philo->data->fork[philo->right_folk].fork_taken = true;
         }
     }
 }
+
+
 
 int eat(t_philo *philo)
 {
@@ -58,13 +72,26 @@ int eat(t_philo *philo)
     //printf("id %d last meal %ld in eat\n", philo->id, philo->last_meal_time);
     ft_usleep(philo->data->time_to_eat, philo->data);
     if (philo->data->meal_nbr > 0 && philo->meals_eaten == philo->data->meal_nbr)
+    {
         philo->full = true;
-    philo->data->fork[philo->right_folk].fork_taken = false;
-    philo->data->fork[philo->left_folk].fork_taken = false;
-    if (pthread_mutex_unlock(&philo->data->fork[philo->right_folk].fork_lock) != 0)
+        set_long(&philo->data->table_lock, &philo->data->all_full, philo->data->all_full +1 );
+    }
+    // release_fork(philo);
+    // philo->data->fork[philo->right_folk].fork_taken = false;
+    // philo->data->fork[philo->left_folk].fork_taken = false;
+    if (philo->data->fork[philo->right_folk].fork_taken == true)
+    {
+        if (pthread_mutex_unlock(&philo->data->fork[philo->right_folk].fork_lock) != 0)
 		return (1);
-    if (pthread_mutex_unlock(&philo->data->fork[philo->left_folk].fork_lock) != 0)
+        philo->data->fork[philo->right_folk].fork_taken = false;
+    }
+    if (philo->data->fork[philo->left_folk].fork_taken == true)
+    {
+        if (pthread_mutex_unlock(&philo->data->fork[philo->left_folk].fork_lock) != 0)
         return (1);
+        philo->data->fork[philo->left_folk].fork_taken = false;
+    }
+        
     return (0);
 }
 

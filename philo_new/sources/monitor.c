@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:23:43 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/07 16:00:45 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:16:15 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,29 @@ void *monitor_all_philos(void *arg)
 
     data = (t_data *)arg;
     count = 0;
+    if (data->philo_nbr == 1)
+        return (NULL);
     while (check_all_threads_created(data) != true);
-    usleep(2000);
+    //usleep(2000);
+    // while (!philo_running)//TODO
+    //     ;
+    while (get_long(&data->table_lock, &data->set_meal_time) != data->philo_nbr);
     while (check_dinner_finished(data) != true)
     {
-        if (philo_full(data) == true)
-        {
-            count++;
-            if (count == data->meal_nbr)
-            {
-                set_bool(&data->table_lock, &data->end_dinner, true);
-                break;
-            }
-        }
+        // if (get_long(&data->table_lock, &data->all_full) == data->philo_nbr)
+        // {
+        //     set_bool(&data->table_lock, &data->end_dinner, true);
+        //     break;
+        // }
+        // if (philo_full(data) == true)
+        // {
+        //     count++;
+        //     if (count == data->meal_nbr)
+        //     {
+        //         set_bool(&data->table_lock, &data->end_dinner, true);
+        //         break;
+        //     }
+        // }
         i = 0;
         while (i < data->philo_nbr)
         {
@@ -46,11 +56,11 @@ void *monitor_all_philos(void *arg)
                 set_bool(&data->philo[i].philo_lock, &data->philo[i].dead, true);
                 set_bool(&data->table_lock, &data->end_dinner, true);
                 write_mutex_lock(&data->philo[i], DIED);
-                break;
+                return (NULL);
             }
             i++;
         }
-        usleep(2000);
+        //usleep(2000);
     }
     return (NULL);
 }
@@ -80,7 +90,6 @@ bool philo_full(t_data *data)
         return (true);
     return (false);
 }
-
 
 void flag_dead(t_data *data)
 {

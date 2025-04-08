@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:24:39 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/07 15:40:57 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:12:14 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void write_status(t_philo *philo, t_status status)
     if (dinner_finished == false)
     {
         if (status == EATING)
-            printf("%ld %d is eating\n", timestamp, philo->id);
+            printf("%ld %d is eating ------------------- meal no.%ld\n", timestamp, philo->id, philo->meals_eaten);
         else if (status == SLEEPING) 
             printf("%ld %d is sleeping\n", timestamp, philo->id);
         else if (status == THINKING)

@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:19:43 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/07 11:03:43 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/08 10:59:52 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void first_init(t_data *data)
 	data->all_philos_created = false;
 	data->start_dinner_time = -1;
 	data->end_dinner = false;
+	data->set_meal_time = 0;
+	data->all_full = 0;
 }
 
 int	data_init(t_data *data)

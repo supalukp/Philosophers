@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:48:37 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/07 15:31:21 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:36:06 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ struct					s_data
 	pthread_mutex_t		table_lock;
 	bool				all_philos_created;
 	long				start_dinner_time;
+	long				set_meal_time;
+	long				all_full;
 	bool				end_dinner;
 	pthread_t			monitor;
 };
@@ -109,6 +111,7 @@ void create_monitor_threads(t_data *data);
 void					*monitor_all_philos(void *arg);
 bool					philo_dead(t_philo *philo);
 bool philo_full(t_data *data);
+
 
 /*****************MUTEX****************/
 int						set_bool(pthread_mutex_t *mutex, bool *dest,
