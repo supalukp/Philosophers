@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:19:43 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/09 14:00:41 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/09 22:04:44 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ void first_init(t_data *data)
 
 int	data_init(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	data->philo = malloc(sizeof(t_philo) * data->philo_nbr);
 	if (!data->philo)
 		return(return_error("Fail Malloc"));
