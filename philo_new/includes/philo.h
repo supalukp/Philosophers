@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:48:37 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/08 17:36:06 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:00:25 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ struct					s_data
 	pthread_mutex_t		write_lock;
 	pthread_mutex_t		table_lock;
 	bool				all_philos_created;
+	long				threads_running;
 	long				start_dinner_time;
 	long				set_meal_time;
 	long				all_full;
@@ -77,8 +78,8 @@ struct					s_philo
 	bool				full;
 	bool				dead;
 	long				last_meal_time;
-	int					right_folk;
-	int					left_folk;
+	int					right_fork;
+	int					left_fork;
 	pthread_mutex_t		philo_lock;
 	t_data				*data;
 };
@@ -106,12 +107,10 @@ void					philo_sleep(t_philo *philo);
 void					get_fork(t_philo *philo);
 
 // /****************MONITOR***************/
-void create_monitor_threads(t_data *data);
-// void					create_monitor_threads(t_data *data);
+void					create_monitor_threads(t_data *data);
 void					*monitor_all_philos(void *arg);
 bool					philo_dead(t_philo *philo);
-bool philo_full(t_data *data);
-
+bool					philo_full(t_data *data);
 
 /*****************MUTEX****************/
 int						set_bool(pthread_mutex_t *mutex, bool *dest,
@@ -138,7 +137,6 @@ void					debug_t_philo(t_data *data);
 void					debug_t_data(t_data *data);
 
 /*****************CLEAN****************/
-int destroy_all_mutex(t_data *data);
-
+int						destroy_all_mutex(t_data *data);
 
 #endif

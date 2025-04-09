@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 09:54:17 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/08 13:45:02 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:12:56 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,13 @@ int	main(int ac, char **av)
 	
 	if (ac >= 5 && ac <= 6)
 	{
-		// parsing
 		if (parse_input(&data, ac, av) == 1)
 			return (1);
-		//debug_parsing(&data);
-		// init
 		if(program_init(&data))
 			return (1);
 		//debug_t_data(&data);
-		debug_t_philo(&data);
-		// program
+		//debug_t_philo(&data);
 		create_philos_threads(&data);
-		//create_monitor_threads(&data);
-		// free
 		destroy_all_mutex(&data);
 	}
 	else

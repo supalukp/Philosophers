@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:24:39 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/08 11:12:14 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:32:40 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void write_status(t_philo *philo, t_status status)
         else if (status == THINKING)
             printf("%ld %d is thinking\n", timestamp, philo->id);
         else if (status == TAKE_FORK_LEFT)
-            printf("%ld %d has taken a left fork   no.%d\n", timestamp, philo->id,philo->left_folk);
+            printf("%ld %d has taken a left fork   no.%d\n", timestamp, philo->id,philo->left_fork);
         else if (status == TAKE_FORK_RIGHT)
-            printf("%ld %d has taken a right fork  no.%d\n", timestamp, philo->id,philo->right_folk);
+            printf("%ld %d has taken a right fork  no.%d\n", timestamp, philo->id,philo->right_fork);
         else if (status == TAKE_FORK)
             printf("%ld %d has taken a fork\n", timestamp, philo->id);
     }

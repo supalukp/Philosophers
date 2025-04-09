@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:19:33 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/03 15:16:17 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:31:52 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void debug_t_philo(t_data *data)
 			printf("philo id %d is full\n", data->philo[i].id);
 		else
 			printf("philo id %d is not full\n", data->philo[i].id);
-		printf("philo id %d -> right_fork id = %d\n", data->philo[i].id, data->philo[i].right_folk);
-		printf("philo id %d -> left_fork id = %d\n", data->philo[i].id, data->philo[i].left_folk);
+		printf("philo id %d -> right_fork id = %d\n", data->philo[i].id, data->philo[i].right_fork);
+		printf("philo id %d -> left_fork id = %d\n", data->philo[i].id, data->philo[i].left_fork);
 		i++;
 	}
 	printf("\n---------------\n");
