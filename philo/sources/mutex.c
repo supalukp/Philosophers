@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:09:30 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/02 11:44:07 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/09 21:21:55 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ bool	get_bool(pthread_mutex_t *mutex, bool *value)
 	if (pthread_mutex_unlock(mutex) != 0)
 		return (1);
 	return (res);
+}
+int	incr_long(pthread_mutex_t *mutex, long *dest, long value)
+{
+	if (pthread_mutex_lock(mutex) != 0)
+		return (1);
+	*dest += value;
+	if (pthread_mutex_unlock(mutex) != 0)
+		return (1);
+	return (0);
 }
 
 int	set_long(pthread_mutex_t *mutex, long *dest, long value)

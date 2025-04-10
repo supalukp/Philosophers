@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:19:43 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/03 15:02:39 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/09 22:04:44 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ void first_init(t_data *data)
 	data->philo = NULL;
 	data->fork = NULL;
 	data->all_philos_created = false;
+	data->threads_running = 0;
 	data->start_dinner_time = -1;
 	data->end_dinner = false;
+	data->set_meal_time = 0;
+	data->all_full = 0;
 }
 
 int	data_init(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	data->philo = malloc(sizeof(t_philo) * data->philo_nbr);
 	if (!data->philo)
 		return(return_error("Fail Malloc"));
@@ -58,10 +58,12 @@ int mutex_init(t_data *data)
 		return (return_error("Fail create mutex table lock"));
 	while (i < data->philo_nbr)
 	{
+		if (pthread_mutex_init(&data->philo[i].philo_lock, NULL) != 0)
+			return (return_error("Fail create mutex philo lock"));
 		if (pthread_mutex_init(&data->fork[i].fork_lock, NULL) != 0)
 		{
 			data->fork[i].fork_created = false;
-			return (return_error("Fail create fork"));
+			return (return_error("Fail create fork lock"));
 		}
 		else
 			data->fork[i].fork_created = true;
@@ -82,10 +84,8 @@ int	philos_init(t_data *data)
 		data->philo[i].meals_eaten = 0;
 		data->philo[i].full = false;
 		data->philo[i].dead = false;
-		if (pthread_mutex_init(&data->philo[i].philo_lock, NULL) != 0)
-			return (return_error("Fail create mutex philo lock"));
-		data->philo[i].right_folk = data->philo[i].id % data->philo_nbr;
-		data->philo[i].left_folk = data->philo[i].id - 1;
+		data->philo[i].right_fork = data->philo[i].id % data->philo_nbr;
+		data->philo[i].left_fork = data->philo[i].id - 1;
 		data->philo[i].data = data;
 		i++;
 	}

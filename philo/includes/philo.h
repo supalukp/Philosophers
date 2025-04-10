@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:48:37 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/03 15:12:28 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/09 22:38:14 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef enum e_status
 	THINKING,
 	TAKE_FORK_LEFT,
 	TAKE_FORK_RIGHT,
+	TAKE_FORK,
 	DIED
 }						t_status;
 
@@ -61,7 +62,10 @@ struct					s_data
 	pthread_mutex_t		write_lock;
 	pthread_mutex_t		table_lock;
 	bool				all_philos_created;
+	long				threads_running;
 	long				start_dinner_time;
+	long				set_meal_time;
+	long				all_full;
 	bool				end_dinner;
 	pthread_t			monitor;
 };
@@ -74,8 +78,8 @@ struct					s_philo
 	bool				full;
 	bool				dead;
 	long				last_meal_time;
-	int					right_folk;
-	int					left_folk;
+	int					right_fork;
+	int					left_fork;
 	pthread_mutex_t		philo_lock;
 	t_data				*data;
 };
@@ -94,18 +98,19 @@ int						philos_init(t_data *data);
 int						mutex_init(t_data *data);
 
 /****************PROGRAM***************/
-void					create_philos_threads(t_data *data);
-void					main_program(t_data *data);
+void					philosophers_dining(t_data *data);
 void					*philo_routine(void *data);
 int						eat(t_philo *philo);
 void					think(t_philo *philo);
 void					philo_sleep(t_philo *philo);
-void					get_fork(t_philo *philo);
+int						get_fork(t_philo *philo);
+int						release_fork(t_philo *philo);
+void one_philo(t_philo *philo);
 
-/****************MONITOR***************/
-void					create_monitor_threads(t_data *data);
+// /****************MONITOR***************/
 void					*monitor_all_philos(void *arg);
 bool					philo_dead(t_philo *philo);
+
 
 /*****************MUTEX****************/
 int						set_bool(pthread_mutex_t *mutex, bool *dest,
@@ -116,6 +121,8 @@ int						set_long(pthread_mutex_t *mutex, long *dest,
 long					get_long(pthread_mutex_t *mutex, long *value);
 bool					check_all_threads_created(t_data *data);
 bool					check_dinner_finished(t_data *data);
+int						incr_long(pthread_mutex_t *mutex, long *dest,
+							long value);
 
 /*****************WRITE****************/
 void					write_status(t_philo *philo, t_status status);
@@ -123,7 +130,7 @@ int						write_mutex_lock(t_philo *philo, t_status status);
 
 /*****************UTILS****************/
 int						return_error(const char *error_msg);
-long					get_current_time(t_time time);
+long	get_current_time(void);
 void					ft_usleep(long duration, t_data *data);
 
 /*****************DEBUG****************/
@@ -131,7 +138,9 @@ void					debug_parsing(t_data *data);
 void					debug_t_philo(t_data *data);
 void					debug_t_data(t_data *data);
 
-/******************FREE****************/
-int						destroy_all_mutex(t_data *data);
+/*****************CLEAN****************/
+int destroy_and_free(t_data *data);
+
+void wait_set_meal_time(t_philo *philo);
 
 #endif
