@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:09:30 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/09 21:21:55 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:19:26 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ bool	get_bool(pthread_mutex_t *mutex, bool *value)
 		return (1);
 	return (res);
 }
+
 int	incr_long(pthread_mutex_t *mutex, long *dest, long value)
 {
 	if (pthread_mutex_lock(mutex) != 0)
@@ -63,14 +64,4 @@ long	get_long(pthread_mutex_t *mutex, long *value)
 	if (pthread_mutex_unlock(mutex) != 0)
 		return (1);
 	return (res);
-}
-
-bool	check_all_threads_created(t_data *data)
-{
-	return (get_bool(&data->table_lock, &data->all_philos_created));
-}
-
-bool	check_dinner_finished(t_data *data)
-{
-	return (get_bool(&data->table_lock, &data->end_dinner));
 }

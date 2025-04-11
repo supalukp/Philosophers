@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:48:37 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/09 22:38:14 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:10:13 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 typedef struct s_data	t_data;
 typedef struct s_philo	t_philo;
 typedef struct s_fork	t_fork;
+
+# define WRONG_INPUT \
+	"Error: Wrong input: ./philo time_to_die time_to_eat \
+time_to_sleep [number_of_times_each_philosopher_must_eat]\n"
 
 typedef enum e_time
 {
@@ -85,32 +89,20 @@ struct					s_philo
 };
 
 /***************PARSING****************/
-long					ft_long_atoi(const char *nb);
-int						only_digit(const char *str);
-int						check_valid_input(int ac, char **av);
 int						parse_input(t_data *data, int ac, char **av);
 
 /*****************INITS****************/
 int						program_init(t_data *data);
-void					first_init(t_data *data);
-int						data_init(t_data *data);
-int						philos_init(t_data *data);
-int						mutex_init(t_data *data);
 
 /****************PROGRAM***************/
-void					philosophers_dining(t_data *data);
+int						philosophers_dining(t_data *data);
 void					*philo_routine(void *data);
 int						eat(t_philo *philo);
 void					think(t_philo *philo);
 void					philo_sleep(t_philo *philo);
-int						get_fork(t_philo *philo);
-int						release_fork(t_philo *philo);
-void one_philo(t_philo *philo);
 
 // /****************MONITOR***************/
 void					*monitor_all_philos(void *arg);
-bool					philo_dead(t_philo *philo);
-
 
 /*****************MUTEX****************/
 int						set_bool(pthread_mutex_t *mutex, bool *dest,
@@ -123,14 +115,14 @@ bool					check_all_threads_created(t_data *data);
 bool					check_dinner_finished(t_data *data);
 int						incr_long(pthread_mutex_t *mutex, long *dest,
 							long value);
+void					wait_set_meal_time(t_philo *philo);
 
 /*****************WRITE****************/
-void					write_status(t_philo *philo, t_status status);
 int						write_mutex_lock(t_philo *philo, t_status status);
 
 /*****************UTILS****************/
 int						return_error(const char *error_msg);
-long	get_current_time(void);
+long					get_current_time(void);
 void					ft_usleep(long duration, t_data *data);
 
 /*****************DEBUG****************/
@@ -139,8 +131,6 @@ void					debug_t_philo(t_data *data);
 void					debug_t_data(t_data *data);
 
 /*****************CLEAN****************/
-int destroy_and_free(t_data *data);
-
-void wait_set_meal_time(t_philo *philo);
+int						destroy_and_free(t_data *data);
 
 #endif

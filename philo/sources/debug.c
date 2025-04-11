@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:19:33 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/09 13:31:52 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:45:51 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	debug_parsing(t_data *data)
 	printf("meal_nbr = %ld\n", data->meal_nbr);
 }
 
-
-void debug_t_philo(t_data *data)
+void	debug_t_philo(t_data *data)
 {
 	int	i;
 
@@ -35,13 +34,16 @@ void debug_t_philo(t_data *data)
 			printf("philo id %d is full\n", data->philo[i].id);
 		else
 			printf("philo id %d is not full\n", data->philo[i].id);
-		printf("philo id %d -> right_fork id = %d\n", data->philo[i].id, data->philo[i].right_fork);
-		printf("philo id %d -> left_fork id = %d\n", data->philo[i].id, data->philo[i].left_fork);
+		printf("philo id %d -> right_fork id = %d\n", data->philo[i].id,
+			data->philo[i].right_fork);
+		printf("philo id %d -> left_fork id = %d\n", data->philo[i].id,
+			data->philo[i].left_fork);
 		i++;
 	}
 	printf("\n---------------\n");
 }
-void debug_t_data(t_data *data)
+
+void	debug_t_data(t_data *data)
 {
 	printf("philo_nbr = %ld\n", data->philo_nbr);
 	printf("time_to_die = %ld\n", data->time_to_die);

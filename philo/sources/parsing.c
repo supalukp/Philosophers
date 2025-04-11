@@ -6,13 +6,13 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 10:14:46 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/03/27 16:12:52 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:50:39 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-long	ft_long_atoi(const char *nb)
+static long	ft_long_atoi(const char *nb)
 {
 	int			i;
 	long int	num;
@@ -36,7 +36,7 @@ long	ft_long_atoi(const char *nb)
 	return (num * negative);
 }
 
-int	only_digit(const char *str)
+static int	only_digit(const char *str)
 {
 	int	i;
 
@@ -51,7 +51,7 @@ int	only_digit(const char *str)
 	return (0);
 }
 
-int	check_valid_input(int ac, char **av)
+static int	check_valid_input(int ac, char **av)
 {
 	int	i;
 
@@ -62,13 +62,16 @@ int	check_valid_input(int ac, char **av)
 			return (1);
 		if (ft_long_atoi(av[i]) < 0 || ft_long_atoi(av[i]) > INT_MAX)
 			return (1);
-		if (i == 1 && ft_long_atoi(av[i]) >= 200)
+		if (i == 1 && ft_long_atoi(av[i]) > 200)
 			return (1);
 		if (i >= 2 && i <= 4)
 		{
 			if (ft_long_atoi(av[i]) < 60)
 				return (1);
 		}
+		if (i == 5)
+			if (i < 0)
+				return (1);
 		i++;
 	}
 	return (0);
@@ -80,7 +83,7 @@ int	parse_input(t_data *data, int ac, char **av)
 		return (1);
 	if (check_valid_input(ac, av))
 	{
-		printf("Error Input Pattern: ./philo philo_nbr time_to_die time_to_eat time_to_sleep [nbr_meals]\n");
+		printf(WRONG_INPUT);
 		return (1);
 	}
 	data->philo_nbr = ft_long_atoi(av[1]);

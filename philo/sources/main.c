@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 09:54:17 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/10 11:38:47 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:53:59 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 int	main(int ac, char **av)
 {
-	t_data data;
-	
+	t_data	data;
+
 	if (ac >= 5 && ac <= 6)
 	{
-		if (parse_input(&data, ac, av) == 1)
+		if (parse_input(&data, ac, av))
 			return (1);
-		if(program_init(&data))
+		if (program_init(&data))
 			return (1);
-		// debug_t_data(&data);
-		// debug_t_philo(&data);
-		philosophers_dining(&data);
-		destroy_and_free(&data);
+		if (philosophers_dining(&data))
+			return (1);
+		if (destroy_and_free(&data))
+			return (1);
 	}
 	else
-		return_error("Error: Example of good agrument\n./philo 5 200 800 800 5(optional)");
+		return_error(WRONG_INPUT);
 	return (0);
 }
