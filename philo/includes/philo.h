@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:48:37 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/10 15:10:13 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:11:53 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,11 @@ typedef struct s_fork	t_fork;
 	"Error: Wrong input: ./philo time_to_die time_to_eat \
 time_to_sleep [number_of_times_each_philosopher_must_eat]\n"
 
-typedef enum e_time
-{
-	SECOND,
-	MILLISECOND,
-	MICROSECOND
-}						t_time;
-
 typedef enum e_status
 {
 	EATING,
 	SLEEPING,
 	THINKING,
-	TAKE_FORK_LEFT,
-	TAKE_FORK_RIGHT,
 	TAKE_FORK,
 	DIED
 }						t_status;
@@ -51,7 +42,6 @@ struct					s_fork
 {
 	pthread_mutex_t		fork_lock;
 	bool				fork_taken;
-	bool				fork_created;
 };
 
 struct					s_data
@@ -66,10 +56,9 @@ struct					s_data
 	pthread_mutex_t		write_lock;
 	pthread_mutex_t		table_lock;
 	bool				all_philos_created;
-	long				threads_running;
 	long				start_dinner_time;
-	long				set_meal_time;
-	long				all_full;
+	long				set_all_meal_time;
+	long				count_philo_full;
 	bool				end_dinner;
 	pthread_t			monitor;
 };

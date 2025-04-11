@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:24:19 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/10 14:59:40 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:12:43 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	eat(t_philo *philo)
 		&& philo->meals_eaten == philo->data->meal_nbr)
 	{
 		set_bool(&philo->philo_lock, &philo->full, true);
-		incr_long(&philo->data->table_lock, &philo->data->all_full, 1);
+		incr_long(&philo->data->table_lock, &philo->data->count_philo_full, 1);
 	}
 	if (release_fork(philo))
 		return (1);

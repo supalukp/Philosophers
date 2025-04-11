@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 22:32:48 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/10 12:32:07 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:07:22 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	wait_set_meal_time(t_philo *philo)
 {
 	while (get_long(&philo->data->table_lock,
-			&philo->data->set_meal_time) != philo->data->philo_nbr)
+			&philo->data->set_all_meal_time) != philo->data->philo_nbr)
 	{
 		usleep(100);
 	}

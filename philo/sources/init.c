@@ -6,7 +6,7 @@
 /*   By: spunyapr <spunyapr@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:19:43 by spunyapr          #+#    #+#             */
-/*   Updated: 2025/04/10 15:00:08 by spunyapr         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:12:22 by spunyapr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ static void	first_init(t_data *data)
 	data->philo = NULL;
 	data->fork = NULL;
 	data->all_philos_created = false;
-	data->threads_running = 0;
 	data->start_dinner_time = -1;
 	data->end_dinner = false;
-	data->set_meal_time = 0;
-	data->all_full = 0;
+	data->set_all_meal_time = 0;
+	data->count_philo_full = 0;
 }
 
 static int	data_init(t_data *data)
@@ -52,12 +51,7 @@ static int	mutex_init(t_data *data)
 		if (pthread_mutex_init(&data->philo[i].philo_lock, NULL) != 0)
 			return (return_error("Fail create mutex philo lock\n"));
 		if (pthread_mutex_init(&data->fork[i].fork_lock, NULL) != 0)
-		{
-			data->fork[i].fork_created = false;
 			return (return_error("Fail create fork lock\n"));
-		}
-		else
-			data->fork[i].fork_created = true;
 		data->fork[i].fork_taken = false;
 		i++;
 	}
